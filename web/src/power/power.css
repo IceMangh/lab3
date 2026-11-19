@@ -1,0 +1,206 @@
+.lab-navigation .power-nav.active { box-shadow: 0 2px 0 var(--accent); }
+.power-shell {
+  --power-live: #75e8b6;
+  --power-station: #f6cb73;
+  --power-off: #ffa297;
+  --city-kerb: #373a38;
+  --city-road: #222524;
+  --city-marking: #646c66;
+  --city-lot: #1a1e1c;
+  --city-plants: #35473a;
+  --city-crown: #4a6350;
+  --city-water: #45646a;
+  --city-spray: #b0cbca;
+  --building-front: #a8aba4;
+  --building-side: #565d57;
+  --building-roof: #47534e;
+  --building-glass: #303b36;
+  --building-ink: #d1d8cd;
+}
+[data-theme='light'] .power-shell {
+  --power-live: #007852;
+  --power-station: #946000;
+  --power-off: #ac3027;
+  --city-kerb: #c7ccc8;
+  --city-road: #e3e8e5;
+  --city-marking: #a0aba3;
+  --city-lot: #f2f5f3;
+  --city-plants: #c2d9c6;
+  --city-crown: #98bc9f;
+  --city-water: #a4c6cb;
+  --city-spray: #4a7778;
+  --building-front: #f0f2ec;
+  --building-side: #b9c6bd;
+  --building-roof: #6b8277;
+  --building-glass: #758d80;
+  --building-ink: #37473d;
+}
+.power-shell .power-nav.active { box-shadow: 0 2px 0 var(--power-live); }
+.workspace.power-workspace { grid-template-rows: auto minmax(0, 1fr); }
+.power-board { display: grid; grid-template-rows: minmax(0, 1fr) auto; min-width: 0; min-height: 0; container: power-board / inline-size; }
+@container power-board (max-width: 510px) {
+  .power-board .playback { flex-wrap: wrap; gap: 8px; padding: 8px; }
+  .power-board .progress-range { min-width: 40px; margin-right: 0; }
+}
+.power-workspace h1 { font-size: clamp(15px, 2vw, 23px); font-weight: 750; }
+.power-view { display: flex; gap: 3px; padding: 3px; border: 1px solid var(--control-border); border-radius: 8px; }
+.power-view button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid transparent;
+  padding: 7px 11px; color: var(--text-secondary); border-radius: 5px; background: transparent; white-space: nowrap;
+}
+.power-view button[aria-pressed='true'] { color: var(--power-live); border-color: var(--power-live); background: color-mix(in srgb, var(--power-live) 8%, transparent); }
+.power-view button:not(:disabled):hover { background: var(--hover); }
+.district-streets { opacity: .88; stroke-linecap: round; stroke-linejoin: round; }
+.district-block { fill: var(--city-lot); }
+.district-block.park { fill: color-mix(in srgb, var(--city-plants) 62%, var(--city-lot)); }
+.district-block.vacant { fill: color-mix(in srgb, var(--city-plants) 24%, var(--city-lot)); }
+.district-block.square { fill: color-mix(in srgb, var(--city-marking) 18%, var(--city-lot)); }
+.district-road-kerb, .district-road, .district-road-marking { fill: none; }
+.district-road-kerb { stroke: var(--city-kerb); }
+.district-road { stroke: var(--city-road); }
+.district-road-marking { stroke: var(--city-marking); stroke-width: 1.25; stroke-dasharray: 8 12; }
+.district-crossing rect { fill: var(--city-road); }
+.district-crossing path { fill: none; stroke: var(--city-marking); stroke-width: 2.4; }
+.district-square-paving, .district-service-yard { fill: var(--city-road); stroke: var(--city-marking); }
+.district-paving-joints, .district-service-fence, .district-bench { fill: none; stroke: var(--city-marking); }
+.district-paving-joints { opacity: .55; }
+.district-bench { stroke-width: 2; }
+.district-park-path, .district-yard-path { fill: none; stroke: var(--city-marking); stroke-width: 4; opacity: .55; }
+.district-yard-path { stroke-width: 2; }
+.district-court-patio { fill: var(--city-road); stroke: var(--city-kerb); }
+.district-court-walk { fill: none; stroke: var(--city-kerb); stroke-width: 3.5; }
+.district-garden-bed { fill: var(--city-plants); stroke: var(--city-kerb); }
+
+.district-meadow, .district-hedge { fill: none; stroke: var(--city-crown); stroke-width: 1.5; }
+.district-hedge { stroke-width: 4; }
+.district-fountain-wall { fill: var(--city-kerb); stroke: var(--city-marking); }
+.district-fountain-water { fill: var(--city-water); stroke: var(--city-marking); }
+.district-fountain path { fill: none; stroke: var(--city-spray); stroke-width: 1.8; }
+.district-tree-trunk { stroke: var(--city-marking); stroke-width: 3; }
+.district-tree-crown { fill: var(--city-crown); stroke: var(--city-plants); stroke-width: 1.5; }
+.district-tree-light { fill: none; stroke: var(--city-marking); stroke-width: 1.3; }
+.district-tree-shadow { fill: var(--shadow-soft); }
+
+.district-price-leader { stroke: var(--edge); stroke-width: 1.2; }
+.graph-edge.highlighted .district-price-leader { stroke: var(--power-live); }
+.district-cable { color: var(--edge); }
+.district-cable.live { color: var(--power-live); }
+.district-cable.picked, .graph-edge:hover .district-cable { color: var(--accent); }
+.district-cable path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.district-cable-bed { stroke: var(--board); stroke-width: 10; opacity: .55; }
+.district-wire { stroke: currentColor; stroke-width: 1.4; stroke-dasharray: 4 5; opacity: .8; }
+.district-cable.live .district-wire, .district-cable.picked .district-wire, .graph-edge:hover .district-wire {
+  stroke-dasharray: none; stroke-width: 2.2; opacity: 1;
+}
+.district-cable.skipped { color: var(--power-off); }
+.district-cable.skipped .district-wire { stroke-width: 2.2; stroke-dasharray: 5 4; opacity: 1; }
+.district-cable.live .district-cable-bed { stroke: var(--power-live); opacity: .12; }
+.district-cable.added .district-cable-bed { stroke-width: 14; opacity: .38; }
+.power-workspace .graph-edge.highlighted rect { stroke: var(--power-live); }
+.power-workspace .graph-edge:has(.district-cable.skipped) rect { stroke: var(--power-off); }
+.district-pole ellipse { fill: var(--board); stroke: currentColor; stroke-opacity: .55; }
+.district-pole .district-pole-mast { fill: var(--surface); stroke: currentColor; stroke-width: 1.4; }
+.district-pole .district-pole-tips { stroke: currentColor; stroke-width: 1.7; }
+
+.district-marker { color: var(--building-ink); }
+.district-marker.station { color: var(--power-station); }
+.district-marker.energized { color: var(--power-live); }
+.district-marker.unreachable { color: var(--power-off); }
+.district-building { stroke: var(--building-ink); stroke-width: 1.15; stroke-linejoin: round; stroke-linecap: round; }
+.district-building.cottage { --roof-tint: #a27765; }
+.district-building.modern { --roof-tint: #8395a2; }
+.district-building.apartment { --roof-tint: #718a99; }
+.district-building.townhouse { --roof-tint: #7a799b; }
+.district-building.bungalow { --roof-tint: #7f9979; }
+.district-building.cabin { --roof-tint: #ae9769; }
+.district-building.transformer { --roof-tint: var(--power-station); stroke: var(--power-station); }
+.district-block-shadow { fill: var(--shadow); stroke: none; }
+.district-building-base { fill: var(--surface); stroke: currentColor; }
+.district-building-front { fill: var(--building-front); }
+.district-building-side { fill: var(--building-side); }
+.district-roof { fill: color-mix(in srgb, var(--roof-tint) 42%, var(--building-roof)); }
+.district-roof-inset, .district-roof-back { fill: color-mix(in srgb, var(--roof-tint) 25%, var(--building-roof)); }
+.district-roof-inset, .district-roof-seam { stroke: var(--building-ink); stroke-opacity: .65; }
+.district-roof-seam { fill: none; }
+.district-door, .district-windows { fill: var(--building-glass); stroke-width: .75; }
+.district-marker.energized .district-windows { fill: var(--power-live); }
+.district-transformer-vent { fill: var(--building-glass); stroke: none; }
+.district-transformer-bolt { fill: var(--building-glass); stroke: none; }
+.district-terminal { stroke: var(--power-station); fill: var(--board); }
+.district-terminal path { fill: none; }
+.district-marker.unreachable .district-building-base { stroke-width: 2; }
+.graph-node:is(:hover, :focus-visible, [aria-pressed='true']) .district-building-base {
+  fill: color-mix(in srgb, currentColor 20%, var(--surface)); stroke-width: 2.3;
+}
+.district-marker text {
+  fill: var(--text); text-anchor: end; dominant-baseline: central; font: 500 16px var(--font-mono);
+  paint-order: stroke; stroke: var(--board); stroke-width: 4px; stroke-linejoin: round;
+}
+.district-marker:is(.station, .unreachable) text { fill: currentColor; }
+.inspector.power-inspector { display: flex; flex-direction: column; gap: 9px; padding: 12px; container: power-inspector / inline-size; }
+.power-inspector > * { flex: none; }
+.power-panel { background: var(--panel); border: 1px solid var(--control-border); border-radius: 9px; padding: 11px 13px; }
+.power-inspector .power-panel h2 { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 16px; font-weight: 750; margin-bottom: 8px; }
+.power-panel h2 small { font: 12px var(--font-mono); color: var(--muted); }
+.power-settings { display: grid; grid-template-columns: auto minmax(50px, 66px) minmax(0, 1fr) auto; align-items: center; gap: 7px; font-size: 13px; }
+.power-panel .button { background: var(--panel); min-height: 34px; padding: 6px 9px; font-size: 12px; }
+.power-panel .button:hover { background: var(--hover); }
+.power-control {
+  width: 100%; min-width: 0; height: 32px; padding: 4px 7px; color: var(--text);
+  border: 1px solid var(--control-border); border-radius: 5px; background: var(--control-bg); font: 12px var(--font-mono);
+}
+.power-control:hover { border-color: var(--border-strong); }
+.power-apply { margin-top: 9px; }
+.power-objects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 11px; max-height: 132px; overflow-y: auto; scrollbar-width: thin; }
+.power-objects label { display: grid; grid-template-columns: minmax(55px, auto) minmax(0, 1fr); align-items: center; gap: 7px; font-size: 12px; }
+.power-objects label:first-child { color: var(--power-station); }
+.power-objects label.active .power-control { border-color: var(--accent); }
+.power-cable-form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(64px, .8fr) auto; gap: 6px; align-items: end; margin-bottom: 8px; }
+.power-cable-form label { display: grid; gap: 4px; min-width: 0; color: var(--muted); font-size: 11px; }
+.power-inspector .icon-button { width: 31px; height: 32px; }
+.power-inspector .icon-button svg { width: 16px; height: 16px; }
+.power-edges, .power-chosen-list { max-height: 180px; overflow-y: auto; scrollbar-width: thin; }
+.power-edge { display: grid; grid-template-columns: minmax(0, 1fr) minmax(64px, 92px) 31px; align-items: center; gap: 9px; border-top: 1px solid var(--border); padding: 3px 0; font: 12px var(--font-mono); }
+.power-edge > span { display: flex; align-items: center; gap: 6px; overflow-wrap: anywhere; padding-left: 2px; }
+.power-edge.wired { color: var(--power-live); }
+.power-edge.active .power-control { border-color: var(--accent); }
+.power-edge .icon-button { border-color: transparent; }
+.power-edge input { height: 28px; }
+.power-empty { padding: 8px 0; color: var(--muted); font-size: 12px; }
+.power-run { min-height: 44px; gap: 10px; width: 100%; }
+.power-result.solved { border-color: var(--power-live); }
+.power-result.blocked { border-color: var(--power-off); }
+.power-result.blocked p, .power-error { font-size: 13px; line-height: 1.55; color: var(--power-off); overflow-wrap: anywhere; }
+.power-error { padding: 4px 5px; }
+.power-result small { display: block; margin-top: 8px; color: var(--muted); font: 11px var(--font-mono); }
+.power-totals { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
+.power-totals span { font-size: 11px; color: var(--text-secondary); }
+.power-totals strong { display: block; font: 500 clamp(22px, 2.7vw, 44px)/1.15 var(--font-mono); color: var(--power-live); overflow-wrap: anywhere; }
+.power-totals dl { margin: 0; padding-left: 11px; border-left: 1px solid var(--border); align-self: center; }
+.power-totals dl div { display: flex; justify-content: space-between; gap: 7px; line-height: 1.9; font-size: 12px; }
+.power-totals dt { color: var(--muted); }
+.power-totals dd { margin: 0; font-family: var(--font-mono); }
+.power-chosen-list { margin: 9px 0 0; padding: 0; list-style: none; }
+.power-chosen-list li { display: flex; justify-content: space-between; align-items: center; gap: 10px; border-top: 1px solid var(--border); padding: 6px 2px; font-size: 12px; overflow-wrap: anywhere; }
+.power-chosen-list b { color: var(--power-live); white-space: nowrap; font: 12px var(--font-mono); }
+
+@media (max-width: 1050px) {
+  .lab-navigation a.power-nav, .power-shell .lab-navigation a { display: inline-block; }
+  .lab-navigation { gap: 14px; }
+  .lab-navigation .help-label { display: none; }
+  .lab-navigation .help-compact { display: block; }
+}
+@media (max-width: 680px) {
+  .app-shell > .header:has(.lab-navigation) { flex-wrap: wrap; flex-basis: auto; min-height: 79px; padding: 8px 2px; gap: 6px; }
+  .lab-navigation { order: 3; flex-basis: 100%; margin: 0; gap: 16px; }
+  .lab-navigation a, .power-shell .lab-navigation a { display: inline-block; font-size: 12px; padding: 4px 0; }
+  .lab-navigation button { margin-left: auto; padding: 0; height: 24px; }
+  .app-shell > .header:has(.lab-navigation) .header-right { margin-left: auto; }
+  .power-board { flex: 0 0 auto; grid-template-rows: auto auto; }
+  .workspace.power-workspace:not(.workspace-expanded) { grid-template-rows: auto auto; }
+}
+@container power-inspector (max-width: 305px) {
+  .power-settings { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .power-settings input { max-width: 78px; }
+  .power-objects { grid-template-columns: minmax(0, 1fr); }
+}

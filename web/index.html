@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0b0b" />
+    <meta name="description" content="Интерактивная лаборатория графов: раскраска, кратчайшие пути и минимальный остов с пошаговой визуализацией." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/Manrope-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      (() => {
+        let theme = 'dark';
+        try { const saved = localStorage.getItem('graph-lab-theme'); if (saved === 'light' || saved === 'dark') theme = saved; } catch {}
+        const background = theme === 'light' ? '#ffffff' : '#0b0b0b';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.documentElement.style.backgroundColor = background;
+        document.querySelector('meta[name="theme-color"]').content = background;
+      })();
+    </script>
+    <title>GRAPH / LAB — лаборатория графов</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
